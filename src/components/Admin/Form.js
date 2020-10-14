@@ -18,7 +18,7 @@ const Form = ({ user, edit }) => {
   }, [edit, open, setValue]);
   const onSubmit = async (data) => {
     const id = edit ? edit._id : new Date().getTime().toString();
-    const rev = edit._rev ? { _rev: edit._rev } : {};
+    const rev = edit ? { _rev: edit._rev } : {};
     const newData = {
       id,
       value: {
