@@ -48,13 +48,15 @@ const Form = ({ user, edit }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Controller
         as={(
-          <TextField
-            id="outlined-basic"
-            error={!!errors.task}
-            label={errors.task ? 'task is required' : 'task'}
-            variant="outlined"
-            style={{ width: '100%' }}
-          />
+          <div className="inputwrapper">
+            <TextField
+              id="outlined-basic"
+              error={!!errors.task}
+              label={errors.task ? 'task is required' : 'task'}
+              variant="outlined"
+              style={{ width: '100%' }}
+            />
+          </div>
         )}
         defaultValue=""
         name="task"
