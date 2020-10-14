@@ -15,9 +15,9 @@ import Login from './components/Login/Login';
 import SignUp from './components/Login/SignUp';
 import Forgot from './components/Login/Forgot';
 import Welcome from './components/Welcome';
-import Admin from './components/Admin/Admin';
+import Admin from './components/Admin';
 import { loggedInUserData, navigation } from './utils/state';
-import { heartbeat } from './utils/api';
+import { get } from './utils/api';
 import useLocalStorage from './utils/hooks';
 
 Amplify.configure({
@@ -49,9 +49,9 @@ const App = () => {
   }, [setUser]);
 
   useEffect(() => {
-    const heartbeatGo = async () => {
+    const heartbeat = async () => {
       if (user.token) {
-        const sess = await heartbeat(user.token);
+        const sess = await get('/heartbeat', user.token);
         if (sess.data.name === 'TokenExpiredError') {
           const cognitoUser = await Auth.currentAuthenticatedUser();
           const currentSession = await Auth.currentSession();
@@ -70,10 +70,10 @@ const App = () => {
         }
       }
     };
-    heartbeatGo();
+    heartbeat();
 
     const interval = setInterval(async () => {
-      heartbeatGo();
+      heartbeat();
     }, 20000);
     return () => clearInterval(interval);
   }, [user, setUser]);
