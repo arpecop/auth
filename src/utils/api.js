@@ -41,6 +41,7 @@ export const post = async (json, token) => {
 export const postPublic = async (json) => {
   const result = await axios.post(`${env.api}/dbpublic`, JSON.stringify(json), {
     headers: {
+
       'Content-Type': 'application/json',
     },
   });
@@ -60,9 +61,10 @@ export const put = async (json, token) => {
   });
 };
 export const del = async (id, token) => {
-  const result = await axios.get(`${env.api}/del${id}`, {
+  const result = await axios.get(`${env.api}/del/test/${id}`, {
     headers: {
       accesstoken: token,
+      'Content-Type': 'application/json',
     },
   });
   return new Promise((resolve) => {

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useForm, Controller } from 'react-hook-form';
@@ -22,15 +23,17 @@ const Form = ({ user, edit }) => {
     const newData = {
       id,
       value: {
-        _id: id,
         ...data,
-        ...rev,
+        _id: id,
         type: 'feed',
+        ...rev,
       },
     };
     if (!open) {
       setFields(
-        fields.rows ? { rows: [newData, ...fields.rows] } : { rows: [newData] },
+        fields.rows
+          ? { rows: [newData, ...fields.rows] }
+          : { rows: [newData] },
       );
     } else {
       const newProjects = fields.rows.map((p) => (p.id === edit._id ? newData : p));
@@ -48,15 +51,13 @@ const Form = ({ user, edit }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Controller
         as={(
-          <div className="inputwrapper">
-            <TextField
-              id="outlined-basic"
-              error={!!errors.task}
-              label={errors.task ? 'task is required' : 'task'}
-              variant="outlined"
-              style={{ width: '100%' }}
-            />
-          </div>
+          <TextField
+            id="outlined-basic"
+            error={!!errors.task}
+            label={errors.task ? 'task is required' : 'task'}
+            variant="outlined"
+            style={{ width: '100%' }}
+          />
         )}
         defaultValue=""
         name="task"
